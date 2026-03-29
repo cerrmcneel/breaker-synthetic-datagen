@@ -4,8 +4,8 @@ import math
 
 model_path = r"C:\ironhack\labs\breaker-synthetic-datagen\BlenderDownloads\ycb7-63n-miniature-circuit-breaker\source\extracted\2_pole.obj"
 breaker_width = 0.036
-breaker_depth = 0.080
-breaker_height = 0.070
+breaker_depth = 0.0753
+breaker_height = 0.0844
 
 #clear the scene
 bpy.ops.object.select_all(action='DESELECT')
@@ -23,15 +23,13 @@ for i in range(10):
     mcb = bpy.context.selected_objects[0]
     #give it a unique name
     mcb.name = f'MCB_{i:02d}'
-    mcb.rotation_euler=(0,0,0)
-
+    mcb.rotation_euler = (math.radians(90), 0, math.radians(0))
     #set position and scale
-    mcb.dimensions =(breaker_depth, breaker_width, breaker_height)
-    mcb.rotation_euler[2]= math.radians(90)
+    mcb.scale = (0.0101, 0.0101, 0.0101)
+    bpy.context.view_layer.update()
+ 
     #rotate
     mcb.location = (x_pos, 0, 0.035)
 
-    
-
-    print(f'Placed {mcb.name} at X: {x_pos:.3f}m')
+    print(f'Placed {mcb.name} at X: {x_pos:.3f}m | Real Size: X={mcb.dimensions.x:.3f}, Y={mcb.dimensions.y:.3f}, Z={mcb.dimensions.z:.3f}')
 print('\nPanel Generation Complete!')
